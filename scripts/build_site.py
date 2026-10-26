@@ -14,39 +14,117 @@ from pathlib import Path
 from tokens import download_token
 
 ROOT = Path(__file__).resolve().parent.parent
-SITE_NAME = "Ledgerly Templates"
+SITE_NAME = "Ledgerly"
 SITE_URL = os.environ.get("SITE_URL", "").rstrip("/")
 TAGLINE = "Spreadsheet templates that keep freelancers and small businesses paid, organized and ready for tax time."
+FONTS = ("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600"
+         "&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap")
 
 CSS = """
-:root{--bg:#f7f8fb;--card:#fff;--ink:#1b2433;--muted:#5b6678;--brand:#1f3a5f;--accent:#2e7d5b;--line:#e3e7ee}
-@media (prefers-color-scheme:dark){:root{--bg:#0f141c;--card:#18202b;--ink:#e8edf4;--muted:#9aa6b8;--brand:#8fb4e6;--accent:#5cc497;--line:#283243}}
-*{box-sizing:border-box}body{margin:0;font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink)}
-.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
-header{padding:56px 0 32px}h1{font-size:clamp(28px,5vw,42px);line-height:1.15;margin:0 0 12px;color:var(--brand)}
-.lead{color:var(--muted);font-size:18px;max-width:640px;margin:0}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;padding:24px 0 56px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px;display:flex;flex-direction:column}
-.card h2{font-size:20px;margin:0 0 8px}.card p{color:var(--muted);margin:0 0 12px}
-.card ul{margin:0 0 20px;padding-left:20px}.price{font-size:24px;font-weight:700;margin-top:auto}
-.btn{display:inline-block;text-align:center;background:var(--accent);color:#fff;text-decoration:none;font-weight:600;padding:12px 18px;border-radius:10px;margin-top:12px}
-.btn.off{background:var(--muted);pointer-events:none}
-nav{padding:16px 0;border-bottom:1px solid var(--line)}nav a{color:var(--brand);text-decoration:none;font-weight:600;margin-right:20px}
-article.guide{max-width:720px;padding:24px 0 56px}article.guide h2{margin-top:32px}article.guide a{color:var(--accent)}
-.cta{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-top:32px}
-.list a{display:block;padding:14px 0;border-bottom:1px solid var(--line);color:var(--ink);text-decoration:none}.list a span{display:block;color:var(--muted);font-size:15px}
-footer{border-top:1px solid var(--line);padding:24px 0 40px;color:var(--muted);font-size:14px}
+:root{--paper:#faf7f2;--card:#fff;--ink:#17201c;--muted:#5d665f;--line:#e6e0d4;--green:#1f5c47;--green-2:#2f7a5f;
+--cell:#fff4c7;--cell-line:#ecd98a;--good:#e3f1ea;--radius:16px;--shadow:0 1px 2px rgba(23,32,28,.06),0 8px 24px rgba(23,32,28,.06);
+--serif:"Fraunces",Georgia,serif;--sans:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace}
+@media (prefers-color-scheme:dark){:root{--paper:#121614;--card:#1a201d;--ink:#ecefe9;--muted:#a1aaa3;--line:#2b332f;
+--green:#7fcfae;--green-2:#9adcc0;--cell:#3a3420;--cell-line:#5a4f2a;--good:#1d3329;--shadow:none}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 17px/1.65 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit}.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+h1,h2,h3{font-family:var(--serif);font-weight:600;letter-spacing:-.015em;line-height:1.12;margin:0}
+.eyebrow{font:500 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--green)}
+nav{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
+.logo{font:600 22px var(--serif);text-decoration:none;display:flex;align-items:center;gap:10px;margin-right:auto}
+.logo i{width:26px;height:26px;border-radius:7px;background:var(--green);display:grid;place-items:center;color:var(--paper);font:500 13px var(--mono);font-style:normal}
+nav a.nl{text-decoration:none;font-weight:500;font-size:15px;color:var(--muted)}nav a.nl:hover{color:var(--ink)}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;padding:88px 0 72px}
+.hero h1{font-size:clamp(40px,6.4vw,68px);margin:18px 0 20px}.hero h1 em{font-style:italic;color:var(--green)}
+.hero p{font-size:19px;color:var(--muted);max-width:520px;margin:0 0 32px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--green);color:var(--paper);text-decoration:none;
+font:600 15px var(--sans);padding:14px 22px;border-radius:999px;border:0;transition:transform .15s,background .15s}
+.btn:hover{background:var(--green-2);transform:translateY(-1px)}.btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line)}
+.btn.off{background:var(--line);color:var(--muted);pointer-events:none}
+.actions{display:flex;flex-wrap:wrap;gap:12px}
+.sheet{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;font:500 14px var(--mono);transform:rotate(1.2deg)}
+.sheet .bar{display:flex;gap:6px;padding:12px 14px;border-bottom:1px solid var(--line)}.sheet .bar b{width:10px;height:10px;border-radius:50%;background:var(--line)}
+.sheet table{width:100%;border-collapse:collapse}.sheet td{padding:11px 14px;border-bottom:1px solid var(--line);white-space:nowrap}
+.sheet td:last-child{text-align:right}.sheet tr:last-child td{border-bottom:0}
+.sheet .in{background:var(--cell);box-shadow:inset 0 0 0 1px var(--cell-line)}.sheet .out{background:var(--good);color:var(--green);font-weight:600}
+.sheet .lbl{color:var(--muted);font-family:var(--sans);font-weight:500}
+.strip{display:flex;flex-wrap:wrap;gap:12px 32px;padding:22px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);color:var(--muted);font-size:15px}
+.strip span:before{content:"✓";color:var(--green);font-weight:600;margin-right:8px}
+section{padding:80px 0}.sec-head{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:36px;flex-wrap:wrap}
+.sec-head h2{font-size:clamp(30px,4vw,44px);margin-top:12px}.sec-head p{color:var(--muted);max-width:420px;margin:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:28px;display:flex;flex-direction:column;transition:box-shadow .2s,transform .2s}
+.card:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+.tag{align-self:flex-start;font:500 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--green);background:var(--good);padding:7px 10px;border-radius:999px;margin-bottom:18px}
+.card h3{font-size:24px;margin-bottom:10px}.card p{color:var(--muted);margin:0 0 18px;font-size:16px}
+.card ul{list-style:none;padding:0;margin:0 0 24px;font-size:15px}.card li{padding:7px 0 7px 26px;position:relative;border-top:1px dashed var(--line)}
+.card li:before{content:"";position:absolute;left:2px;top:14px;width:12px;height:8px;border-radius:2px;background:var(--cell);box-shadow:inset 0 0 0 1px var(--cell-line)}
+.buy{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.price{font:600 30px var(--serif)}.price small{font:400 13px var(--sans);color:var(--muted);display:block}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;counter-reset:s}
+.step{padding:28px;border-radius:var(--radius);background:var(--card);border:1px solid var(--line)}
+.step:before{counter-increment:s;content:"0" counter(s);font:500 13px var(--mono);color:var(--green)}
+.step h3{font-size:21px;margin:14px 0 8px}.step p{color:var(--muted);margin:0;font-size:16px}
+.faq{max-width:760px}.faq details{border-bottom:1px solid var(--line);padding:20px 0}
+.faq summary{font:600 19px var(--serif);cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.faq summary:after{content:"+";font:400 22px var(--sans);color:var(--green)}.faq details[open] summary:after{content:"−"}
+.faq p{color:var(--muted);margin:12px 0 0}
+.page-head{padding:72px 0 40px;max-width:760px}.page-head h1{font-size:clamp(36px,5.5vw,56px);margin:14px 0 16px}
+.page-head p{font-size:19px;color:var(--muted);margin:0}
+.list{display:grid;gap:16px;padding-bottom:80px}
+.list a{display:block;text-decoration:none;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px 28px;transition:box-shadow .2s}
+.list a:hover{box-shadow:var(--shadow)}.list strong{font:600 22px/1.25 var(--serif);display:block;margin-bottom:6px}.list span{color:var(--muted);font-size:16px}
+article.guide{max-width:700px;margin:0 auto;padding:64px 0 88px;font-size:18px;line-height:1.75}
+article.guide h1{font-size:clamp(34px,5vw,50px);margin:14px 0 28px}
+article.guide h2{font-size:28px;margin:48px 0 12px}article.guide a{color:var(--green)}
+article.guide li{margin:6px 0}article.guide strong{font-weight:600}article.guide em{color:var(--muted)}
+.cta{margin-top:48px;padding:32px;border-radius:var(--radius);background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow)}
+.cta h3{font-size:24px;margin:12px 0 8px}.cta p{color:var(--muted);margin:0 0 20px;font-size:16px}
+.thanks{text-align:center;padding:120px 0}.thanks h1{font-size:clamp(36px,6vw,56px);margin:14px 0 16px}.thanks p{color:var(--muted);font-size:18px}
+footer{border-top:1px solid var(--line);padding:40px 0 56px;color:var(--muted);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}footer a{text-decoration:none;margin-left:20px}
+@media (max-width:860px){.hero{grid-template-columns:1fr;padding:56px 0 48px;gap:40px}.steps{grid-template-columns:1fr}section{padding:56px 0}
+.grid{grid-template-columns:1fr}.sheet{transform:none}nav .wrap{gap:18px}}
 """
+
+SHEET = """<div class="sheet" aria-hidden="true"><div class="bar"><b></b><b></b><b></b></div><table>
+<tr><td class="lbl">Take-home goal</td><td class="in">$60,000</td></tr>
+<tr><td class="lbl">Business costs</td><td class="in">$4,000</td></tr>
+<tr><td class="lbl">Weeks off</td><td class="in">8</td></tr>
+<tr><td class="lbl">Billable hours / yr</td><td>1,056</td></tr>
+<tr><td class="lbl">Minimum hourly rate</td><td class="out">$90.97</td></tr></table></div>"""
+
+FAQ = [
+    ("Which apps do the templates work in?",
+     "Microsoft Excel, Google Sheets (File, then Import) and LibreOffice. Every formula is tested before a template is listed."),
+    ("Is it a subscription?", "No. You pay once and the file is yours to keep and reuse."),
+    ("How do I get the file?",
+     "Right after checkout you're taken to a download page. Bookmark it to download again later."),
+    ("Do I need spreadsheet skills?",
+     "No. You only type into the yellow cells. Everything else is calculated for you, and each file opens on a short How to use sheet."),
+]
 
 
 def page(title, body, css="assets/style.css", desc=TAGLINE, head=""):
+    base = css.replace("assets/style.css", "")
     return f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{html.escape(title)}</title><meta name="description" content="{html.escape(desc)}">{head}
-<link rel="stylesheet" href="{css}"></head><body>
-<nav><div class="wrap"><a href="{css.replace('assets/style.css', '')}./">Templates</a><a href="{css.replace('assets/style.css', '')}guides/">Guides</a></div></nav>{body}
-<footer><div class="wrap">&copy; {SITE_NAME}. Instant download after checkout. Works in Excel, Google Sheets and LibreOffice.</div></footer>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="{FONTS}"><link rel="stylesheet" href="{css}"></head><body>
+<nav><div class="wrap"><a class="logo" href="{base}./"><i>L</i>{SITE_NAME}</a>
+<a class="nl" href="{base}./#templates">Templates</a><a class="nl" href="{base}guides/">Guides</a></div></nav>{body}
+<footer><div class="wrap"><span>&copy; {SITE_NAME}. One-time purchase, instant download.</span>
+<span><a href="{base}./#templates">Templates</a><a href="{base}guides/">Guides</a></span></div></footer>
 </body></html>"""
+
+
+def buy_button(p, label="Buy now"):
+    if p.get("payment_link"):
+        return f'<a class="btn" href="{html.escape(p["payment_link"])}">{label}</a>'
+    return '<span class="btn off">Coming soon</span>'
 
 
 def read_guide(path):
@@ -74,11 +152,9 @@ def main():
         src = ROOT / "products" / p["file"]
         link = links.get(p["slug"]) if src.exists() else None
         p["payment_link"] = link
-        btn = (f'<a class="btn" href="{html.escape(link)}">Buy now</a>' if link
-               else '<span class="btn off">Coming soon</span>')
-        cards.append(f"""<article class="card"><h2>{html.escape(p['name'])}</h2>
-<p>{html.escape(p['blurb'])}</p><ul>{feats}</ul>
-<div class="price">${p['price'] / 100:.2f}</div>{btn}</article>""")
+        cards.append(f"""<article class="card"><span class="tag">{html.escape(p.get('tag', 'Template'))}</span>
+<h3>{html.escape(p['name'])}</h3><p>{html.escape(p['blurb'])}</p><ul>{feats}</ul>
+<div class="buy"><div class="price">${p['price'] / 100:.0f}<small>one-time, .xlsx</small></div>{buy_button(p)}</div></article>""")
 
         if not link:
             continue
@@ -88,16 +164,32 @@ def main():
         shutil.copy(src, d / p["file"])
         (d / "index.html").write_text(page(
             f"Download: {p['name']}",
-            f"""<div class="wrap"><header><h1>Thanks for your purchase!</h1>
-<p class="lead">Your copy of {html.escape(p['name'])} is ready.</p>
-<a class="btn" href="{p['file']}" download>Download the template</a>
-<p class="lead" style="margin-top:20px">Bookmark this page to download again later.</p></header></div>""",
+            f"""<div class="wrap thanks"><span class="eyebrow">Payment received</span><h1>Thanks for your purchase!</h1>
+<p>Your copy of {html.escape(p['name'])} is ready.</p>
+<p><a class="btn" href="{p['file']}" download>Download the template</a></p>
+<p>Bookmark this page to download again later.</p></div>""",
             css="../../assets/style.css", head='<meta name="robots" content="noindex">'))
 
+    faq = "".join(f"<details><summary>{html.escape(q)}</summary><p>{html.escape(a)}</p></details>" for q, a in FAQ)
     (out / "index.html").write_text(page(
-        SITE_NAME,
-        f"""<div class="wrap"><header><h1>{SITE_NAME}</h1><p class="lead">{TAGLINE}</p></header>
-<main class="grid">{''.join(cards)}</main></div>"""))
+        f"{SITE_NAME}: spreadsheet templates for freelancers",
+        f"""<div class="wrap"><div class="hero"><div><span class="eyebrow">Templates for freelancers</span>
+<h1>Spreadsheets that <em>pay you back.</em></h1><p>{TAGLINE}</p>
+<div class="actions"><a class="btn" href="#templates">Browse templates</a><a class="btn ghost" href="guides/">Read the guides</a></div></div>
+{SHEET}</div>
+<div class="strip"><span>Excel, Google Sheets &amp; LibreOffice</span><span>One-time price, no subscription</span>
+<span>Instant download</span><span>Every formula tested</span></div></div>
+<section id="templates"><div class="wrap"><div class="sec-head"><div><span class="eyebrow">The collection</span><h2>Pick the job you want done</h2></div>
+<p>Each template does one job well. Type into the yellow cells and the rest works itself out.</p></div>
+<div class="grid">{''.join(cards)}</div></div></section>
+<section><div class="wrap"><div class="sec-head"><div><span class="eyebrow">How it works</span><h2>Set up in five minutes</h2></div></div>
+<div class="steps"><div class="step"><h3>Buy once</h3><p>Secure checkout, then you go straight to your download.</p></div>
+<div class="step"><h3>Open anywhere</h3><p>Excel, Google Sheets or LibreOffice. Start on the How to use sheet.</p></div>
+<div class="step"><h3>Fill the yellow cells</h3><p>Totals, warnings and dashboards update as you type.</p></div></div></div></section>
+<section><div class="wrap"><div class="sec-head"><div><span class="eyebrow">Questions</span><h2>Good to know</h2></div></div>
+<div class="faq">{faq}</div></div></section>""",
+        desc=TAGLINE))
+
     by_slug = {p["slug"]: p for p in data["products"]}
     guides = sorted((read_guide(g) for g in (ROOT / "guides").glob("*.html")),
                     key=lambda g: g.get("date", ""), reverse=True)
@@ -105,20 +197,24 @@ def main():
         p = by_slug.get(g.get("product"))
         cta = ""
         if p:
-            buy = (f'<a class="btn" href="{html.escape(p["payment_link"])}">Get it for ${p["price"] / 100:.2f}</a>'
-                   if p.get("payment_link") else '<a class="btn" href="../../">See the templates</a>')
-            cta = f'<div class="cta"><strong>{html.escape(p["name"])}</strong><p>{html.escape(p["blurb"])}</p>{buy}</div>'
+            btn = (buy_button(p, f"Get it for ${p['price'] / 100:.0f}") if p.get("payment_link")
+                   else '<a class="btn" href="../../#templates">See the templates</a>')
+            cta = (f'<div class="cta"><span class="eyebrow">Do it in a spreadsheet</span><h3>{html.escape(p["name"])}</h3>'
+                   f'<p>{html.escape(p["blurb"])}</p>{btn}</div>')
         gd = out / "guides" / g["slug"]
         gd.mkdir(parents=True)
         (gd / "index.html").write_text(page(
-            g["title"], f'<div class="wrap"><article class="guide"><h1>{html.escape(g["title"])}</h1>{g["body"]}{cta}</article></div>',
+            g["title"],
+            f'<div class="wrap"><article class="guide"><span class="eyebrow">Guide</span><h1>{html.escape(g["title"])}</h1>'
+            f'{g["body"]}{cta}</article></div>',
             css="../../assets/style.css", desc=g["description"]))
-    links = "".join(f'<a href="{g["slug"]}/">{html.escape(g["title"])}<span>{html.escape(g["description"])}</span></a>'
-                    for g in guides)
+    items = "".join(f'<a href="{g["slug"]}/"><strong>{html.escape(g["title"])}</strong>'
+                    f'<span>{html.escape(g["description"])}</span></a>' for g in guides)
     (out / "guides" / "index.html").write_text(page(
         f"Guides | {SITE_NAME}",
-        f'<div class="wrap"><header><h1>Guides</h1><p class="lead">Practical money and admin guides for freelancers.</p></header><div class="list">{links}</div></div>',
-        css="../assets/style.css"))
+        f'<div class="wrap"><div class="page-head"><span class="eyebrow">Guides</span><h1>Money and admin, made simple</h1>'
+        f'<p>Practical guides for freelancers on pricing, invoicing and taxes.</p></div><div class="list">{items}</div></div>',
+        css="../assets/style.css", desc="Practical money and admin guides for freelancers."))
 
     robots = "User-agent: *\nAllow: /\n"
     if SITE_URL:

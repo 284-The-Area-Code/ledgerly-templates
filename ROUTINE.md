@@ -16,7 +16,7 @@ Attach it with push access, clone it, do one week's work, then stop.
      overlap an existing product. Include a "How to use" sheet, yellow input cells, a few
      sample rows and formulas that work in Excel, Google Sheets and LibreOffice. Recalculate a
      copy with `soffice --headless --convert-to xlsx` and confirm no cell shows a `#` error and
-     the sample totals are right. Add it to `products.json` (slug, name, price in cents between
+     the sample totals are right. Add it to `products.json` (slug, name, tag (a one- or two-word category such as Taxes, Pricing, Clients, Planning or Get paid), price in cents between
      700 and 1500, blurb, three features, file). Then run `python3 scripts/seal.py`: only the
      sealed `.enc` files may be committed, never the plain `.xlsx`. Don't commit the generator
      script either.

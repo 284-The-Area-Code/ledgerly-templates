@@ -10,7 +10,8 @@
         "Open, Partial, Overdue and Paid status",
         "Cash dashboard with per-client totals"
       ],
-      "file": "freelance-invoice-tracker.xlsx"
+      "file": "freelance-invoice-tracker.xlsx",
+      "tag": "Get paid"
     },
     {
       "slug": "tax-set-aside-calculator",
@@ -22,7 +23,8 @@
         "Editable self-employment, income and state rates",
         "Suggested set-aside percentage"
       ],
-      "file": "tax-set-aside-calculator.xlsx"
+      "file": "tax-set-aside-calculator.xlsx",
+      "tag": "Taxes"
     },
     {
       "slug": "client-project-tracker",
@@ -34,7 +36,8 @@
         "Effective hourly rate per project",
         "Pipeline value and win rate"
       ],
-      "file": "client-project-tracker.xlsx"
+      "file": "client-project-tracker.xlsx",
+      "tag": "Clients"
     },
     {
       "slug": "freelance-rate-calculator",
@@ -46,7 +49,8 @@
         "Day rate and retainer pricing",
         "Accounts for time off and admin hours"
       ],
-      "file": "freelance-rate-calculator.xlsx"
+      "file": "freelance-rate-calculator.xlsx",
+      "tag": "Pricing"
     },
     {
       "slug": "expense-mileage-log",
@@ -58,7 +62,8 @@
         "Mileage log with editable per-mile rate",
         "Deductions summary and missing-receipt count"
       ],
-      "file": "expense-mileage-log.xlsx"
+      "file": "expense-mileage-log.xlsx",
+      "tag": "Taxes"
     },
     {
       "slug": "cash-flow-forecast",
@@ -70,7 +75,8 @@
         "Lowest cash point warning",
         "Owner pay and tax set-aside built in"
       ],
-      "file": "cash-flow-forecast.xlsx"
+      "file": "cash-flow-forecast.xlsx",
+      "tag": "Planning"
     }
   ]
 }
