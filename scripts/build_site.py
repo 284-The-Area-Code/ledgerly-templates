@@ -86,8 +86,20 @@ article.guide li{margin:6px 0}article.guide strong{font-weight:600}article.guide
 .thanks{text-align:center;padding:120px 0}.thanks h1{font-size:clamp(36px,6vw,56px);margin:14px 0 16px}.thanks p{color:var(--muted);font-size:18px}
 footer{border-top:1px solid var(--line);padding:40px 0 56px;color:var(--muted);font-size:14px}
 footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}footer a{text-decoration:none;margin-left:20px}
+.form.calc{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 20px;margin:32px 0 20px;padding:28px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius)}
+.form.calc label{display:flex;flex-direction:column;justify-content:space-between;gap:8px;font-size:14px;font-weight:500;color:var(--muted);line-height:1.4}
+.form.calc input{font:500 17px var(--mono);color:var(--ink);background:var(--cell);border:1px solid var(--cell-line);border-radius:10px;padding:11px 14px;width:100%;outline:none;transition:box-shadow .15s}
+.form.calc input:focus{box-shadow:0 0 0 3px color-mix(in srgb,var(--green) 25%,transparent);border-color:var(--green)}
+.result{display:grid;gap:2px;padding:8px 28px;border-radius:var(--radius);background:var(--good);margin-bottom:12px}
+.result p{margin:0;padding:14px 0;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 12px;font-size:16px;border-bottom:1px solid color-mix(in srgb,var(--green) 18%,transparent)}
+.result p:last-child{border-bottom:0}.result strong{font:600 24px var(--mono);color:var(--green)}
+.result p:first-child strong{font-size:34px}
+.result p:last-child{display:block}.result p:last-child strong{font-size:17px}
+.faq+article.guide{margin:0;padding-top:24px}
+.contact{margin:32px 0;padding:28px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--green);border-radius:var(--radius)}
+.contact p{margin:0 0 10px}.contact p:last-child{margin:0;color:var(--muted);font-size:16px}
 @media (max-width:860px){.hero{grid-template-columns:1fr;padding:56px 0 48px;gap:40px}.steps{grid-template-columns:1fr}section{padding:56px 0}
-.grid{grid-template-columns:1fr}.sheet{transform:none}nav .wrap{gap:18px}}
+.grid{grid-template-columns:1fr}.sheet{transform:none}.form.calc{grid-template-columns:1fr;padding:20px}.result{padding:4px 20px}nav .wrap{gap:18px}}
 """
 
 SHEET = """<div class="sheet" aria-hidden="true"><div class="bar"><b></b><b></b><b></b></div><table>
