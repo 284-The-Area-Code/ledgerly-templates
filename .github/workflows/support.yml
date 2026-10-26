@@ -1,0 +1,29 @@
+name: Support inbox
+
+# Marks customer questions as needing a reply so the daily support task finds them,
+# and sends an instant acknowledgement. Comments by the repo owner are the replies, so they're skipped.
+on:
+  issues:
+    types: [opened, reopened]
+  issue_comment:
+    types: [created]
+
+permissions:
+  issues: write
+
+jobs:
+  triage:
+    if: github.event.sender.login != github.repository_owner && github.event.sender.type != 'Bot' && !github.event.issue.pull_request
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = context.issue;
+            await github.rest.issues.addLabels({ ...issue, labels: ['needs-reply'] });
+            if (context.eventName === 'issues' && context.payload.action === 'opened') {
+              await github.rest.issues.createComment({ ...issue, body:
+                "Thanks for getting in touch! We've got your question and will reply here within one business day.\n\n" +
+                "In the meantime, the [Help page](https://284-the-area-code.github.io/ledgerly-templates/help/) answers the most common questions. " +
+                "Please don't post your email address or order details here, as this page is public." });
+            }
