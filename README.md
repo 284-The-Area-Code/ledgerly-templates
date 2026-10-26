@@ -1,4 +1,4 @@
-# Ledgerly Templates
+# Rowfern Templates
 
 A static store selling spreadsheet templates for freelancers, run by a weekly scheduled task
 (see `ROUTINE.md`) and deployed to GitHub Pages on every push to `main`.

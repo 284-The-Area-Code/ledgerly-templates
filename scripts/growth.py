@@ -15,7 +15,7 @@ from urllib.parse import quote
 ROOT = Path(__file__).resolve().parent.parent
 SITE = json.loads((ROOT / "site.json").read_text())
 SITE_URL = os.environ.get("SITE_URL", "").rstrip("/")
-NAME = "Ledgerly Templates"
+NAME = "Rowfern Templates"
 
 
 def seo_head(path, title, desc, jsonld=None, home=False):
@@ -110,7 +110,7 @@ def contact_block():
 def build_help(out, page):
     fq = faqs()
     items = "".join(f"<details><summary>{html.escape(q)}</summary><p>{html.escape(a)}</p></details>" for q, a in fq)
-    desc = "Answers to common questions about Ledgerly Templates, and how to reach support."
+    desc = "Answers to common questions about Rowfern Templates, and how to reach support."
     d = out / "help"
     d.mkdir(parents=True)
     (d / "index.html").write_text(page(

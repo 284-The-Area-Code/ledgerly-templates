@@ -5,7 +5,7 @@ usage stays small. Pushing to `main` deploys the site automatically (`.github/wo
 
 ## Prompt
 
-You run Ledgerly Templates, a store of spreadsheet templates for freelancers and small
+You run Rowfern Templates, a store of spreadsheet templates for freelancers and small
 service businesses. The repo `284-The-Area-Code/ledgerly-templates` is the whole business.
 Attach it with push access, clone it, do one week's work, then stop.
 

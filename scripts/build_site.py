@@ -15,7 +15,7 @@ import growth
 from tokens import download_token
 
 ROOT = Path(__file__).resolve().parent.parent
-SITE_NAME = "Ledgerly"
+SITE_NAME = "Rowfern"
 SITE_URL = os.environ.get("SITE_URL", "").rstrip("/")
 TAGLINE = "Spreadsheet templates that keep freelancers and small businesses paid, organized and ready for tax time."
 FONTS = ("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600"
@@ -127,7 +127,7 @@ def page(title, body, css="assets/style.css", desc=TAGLINE, head=""):
 <title>{html.escape(title)}</title><meta name="description" content="{html.escape(desc)}">{head}
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="{FONTS}"><link rel="stylesheet" href="{css}"></head><body>
-<nav><div class="wrap"><a class="logo" href="{base}./"><i>L</i>{SITE_NAME}</a>
+<nav><div class="wrap"><a class="logo" href="{base}./"><i>R</i>{SITE_NAME}</a>
 <a class="nl" href="{base}./#templates">Templates</a><a class="nl" href="{base}guides/">Guides</a>
 <a class="nl" href="{base}tools/">Tools</a></div></nav>{body}
 <footer><div class="wrap"><span>&copy; {SITE_NAME}. One-time purchase, instant download.</span>
