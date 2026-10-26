@@ -1,0 +1,76 @@
+{
+  "products": [
+    {
+      "slug": "freelance-invoice-tracker",
+      "name": "Freelance Invoice & Payment Tracker",
+      "price": 900,
+      "blurb": "Know who owes you, how much, and who's late. Status updates itself, and the dashboard shows cash collected and overdue at a glance.",
+      "features": [
+        "300 invoice rows with automatic due dates",
+        "Open, Partial, Overdue and Paid status",
+        "Cash dashboard with per-client totals"
+      ],
+      "file": "freelance-invoice-tracker.xlsx"
+    },
+    {
+      "slug": "tax-set-aside-calculator",
+      "name": "Self-Employed Tax Set-Aside Calculator",
+      "price": 900,
+      "blurb": "Log income and expenses and see exactly how much to put aside each quarter, so tax time never surprises you.",
+      "features": [
+        "Quarterly profit worked out automatically",
+        "Editable self-employment, income and state rates",
+        "Suggested set-aside percentage"
+      ],
+      "file": "tax-set-aside-calculator.xlsx"
+    },
+    {
+      "slug": "client-project-tracker",
+      "name": "Client & Project Tracker",
+      "price": 900,
+      "blurb": "Track every lead and project from proposal to done, with deadline alerts and your real hourly rate per job.",
+      "features": [
+        "Stage dropdowns and deadline warnings",
+        "Effective hourly rate per project",
+        "Pipeline value and win rate"
+      ],
+      "file": "client-project-tracker.xlsx"
+    },
+    {
+      "slug": "freelance-rate-calculator",
+      "name": "Freelance Rate Calculator",
+      "price": 700,
+      "blurb": "Work out the hourly, day and retainer rates you actually need, counting taxes, costs, time off and unbilled hours.",
+      "features": [
+        "Minimum hourly rate from your income goal",
+        "Day rate and retainer pricing",
+        "Accounts for time off and admin hours"
+      ],
+      "file": "freelance-rate-calculator.xlsx"
+    },
+    {
+      "slug": "expense-mileage-log",
+      "name": "Business Expense & Mileage Log",
+      "price": 900,
+      "blurb": "Log every expense and business drive, see deductions by category, and catch missing receipts before tax time.",
+      "features": [
+        "500 expense rows with category dropdowns",
+        "Mileage log with editable per-mile rate",
+        "Deductions summary and missing-receipt count"
+      ],
+      "file": "expense-mileage-log.xlsx"
+    },
+    {
+      "slug": "cash-flow-forecast",
+      "name": "12-Month Cash Flow Forecast",
+      "price": 900,
+      "blurb": "See a year of money in and money out, and spot a tight month before it arrives.",
+      "features": [
+        "Rolling 12-month view",
+        "Lowest cash point warning",
+        "Owner pay and tax set-aside built in"
+      ],
+      "file": "cash-flow-forecast.xlsx"
+    }
+  ]
+}

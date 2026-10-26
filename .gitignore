@@ -1,0 +1,5 @@
+_site/
+build/
+__pycache__/
+products/*.xlsx
+products/*.key
