@@ -1,0 +1,40 @@
+name: Question or problem
+description: Ask about a template, or tell us something isn't working.
+labels: [needs-reply]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This page is public. Please don't post your email address, order number or any payment details.
+        For anything about a specific order, use the email address on the Help page instead.
+  - type: dropdown
+    id: product
+    attributes:
+      label: Which template is this about?
+      options:
+        - Not about a specific template
+        - Freelance Invoice & Payment Tracker
+        - Self-Employed Tax Set-Aside Calculator
+        - Client & Project Tracker
+        - Freelance Rate Calculator
+        - Business Expense & Mileage Log
+        - 12-Month Cash Flow Forecast
+        - Other
+  - type: dropdown
+    id: app
+    attributes:
+      label: Which app are you using?
+      options:
+        - Not relevant
+        - Microsoft Excel
+        - Google Sheets
+        - LibreOffice
+        - Apple Numbers
+        - Other
+  - type: textarea
+    id: question
+    attributes:
+      label: Your question
+      description: What are you trying to do, and what happened?
+    validations:
+      required: true

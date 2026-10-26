@@ -1,0 +1,37 @@
+title: Freelance Hourly Rate Calculator
+description: Enter the income you want to take home and get the hourly and day rate you need, after tax, costs, time off and unbilled hours.
+date: 2026-10-26
+product: freelance-rate-calculator
+
+<form class="form calc" id="rate" oninput="calc()">
+<label>Take-home pay you want per year ($) <input type="number" id="pay" value="60000" min="0" step="1000"></label>
+<label>Share of profit that goes to tax (%) <input type="number" id="tax" value="28" min="0" max="90"></label>
+<label>Business costs per year ($) <input type="number" id="costs" value="4000" min="0" step="100"></label>
+<label>Safety margin (%) <input type="number" id="margin" value="10" min="0" max="100"></label>
+<label>Weeks off per year (holidays, sick days, gaps) <input type="number" id="off" value="8" min="0" max="51"></label>
+<label>Hours worked per week <input type="number" id="hours" value="40" min="1" max="100"></label>
+<label>Share of those hours you can bill (%) <input type="number" id="billable" value="60" min="1" max="100"></label>
+</form>
+<div class="result" aria-live="polite">
+<p>Minimum hourly rate: <strong id="r-hour">$91</strong></p>
+<p>Day rate (8 hours): <strong id="r-day">$728</strong></p>
+<p>Revenue you need: <strong id="r-rev">$96,067</strong> over <strong id="r-hrs">1,056</strong> billable hours</p>
+</div>
+<h2>How it works</h2>
+<p>The calculator works backwards from what you want to keep. It grosses your take-home pay up for tax, adds business costs and a safety margin, then divides by the hours you can actually bill once time off and admin are taken out. The full method is in our guide, <a href="../../guides/how-to-calculate-freelance-hourly-rate/">How to Calculate Your Freelance Hourly Rate</a>.</p>
+<p>Use your own tax share: it depends on where you live and how much you earn. This is an estimate, not tax advice.</p>
+<script>
+function calc(){
+  var v=function(id){return parseFloat(document.getElementById(id).value)||0};
+  var tax=Math.min(v('tax'),90)/100;
+  var revenue=(v('pay')/(1-tax)+v('costs'))*(1+v('margin')/100);
+  var hours=Math.max(52-v('off'),0)*v('hours')*v('billable')/100;
+  var fmt=function(n){return '$'+Math.round(n).toLocaleString('en-US')};
+  var rate=hours>0?revenue/hours:0;
+  document.getElementById('r-hour').textContent=fmt(rate);
+  document.getElementById('r-day').textContent=fmt(rate*8);
+  document.getElementById('r-rev').textContent=fmt(revenue);
+  document.getElementById('r-hrs').textContent=Math.round(hours).toLocaleString('en-US');
+}
+calc();
+</script>

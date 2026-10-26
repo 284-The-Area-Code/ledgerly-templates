@@ -11,6 +11,7 @@ import os
 import shutil
 from pathlib import Path
 
+import growth
 from tokens import download_token
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -115,9 +116,10 @@ def page(title, body, css="assets/style.css", desc=TAGLINE, head=""):
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="{FONTS}"><link rel="stylesheet" href="{css}"></head><body>
 <nav><div class="wrap"><a class="logo" href="{base}./"><i>L</i>{SITE_NAME}</a>
-<a class="nl" href="{base}./#templates">Templates</a><a class="nl" href="{base}guides/">Guides</a></div></nav>{body}
+<a class="nl" href="{base}./#templates">Templates</a><a class="nl" href="{base}guides/">Guides</a>
+<a class="nl" href="{base}tools/">Tools</a></div></nav>{body}
 <footer><div class="wrap"><span>&copy; {SITE_NAME}. One-time purchase, instant download.</span>
-<span><a href="{base}./#templates">Templates</a><a href="{base}guides/">Guides</a></span></div></footer>
+<span><a href="{base}./#templates">Templates</a><a href="{base}guides/">Guides</a><a href="{base}tools/">Free tools</a><a href="{base}help/">Help &amp; contact</a></span></div></footer>
 </body></html>"""
 
 
@@ -188,7 +190,7 @@ def main():
 <div class="step"><h3>Fill the yellow cells</h3><p>Totals, warnings and dashboards update as you type.</p></div></div></div></section>
 <section><div class="wrap"><div class="sec-head"><div><span class="eyebrow">Questions</span><h2>Good to know</h2></div></div>
 <div class="faq">{faq}</div></div></section>""",
-        desc=TAGLINE))
+        desc=TAGLINE, head=growth.seo_head("", SITE_NAME, TAGLINE, growth.product_ld(data["products"]), home=True)))
 
     by_slug = {p["slug"]: p for p in data["products"]}
     guides = sorted((read_guide(g) for g in (ROOT / "guides").glob("*.html")),
@@ -207,18 +209,21 @@ def main():
             g["title"],
             f'<div class="wrap"><article class="guide"><span class="eyebrow">Guide</span><h1>{html.escape(g["title"])}</h1>'
             f'{g["body"]}{cta}</article></div>',
-            css="../../assets/style.css", desc=g["description"]))
+            css="../../assets/style.css", desc=g["description"],
+            head=growth.seo_head(f'guides/{g["slug"]}/', g["title"], g["description"], growth.article_ld(g))))
     items = "".join(f'<a href="{g["slug"]}/"><strong>{html.escape(g["title"])}</strong>'
                     f'<span>{html.escape(g["description"])}</span></a>' for g in guides)
     (out / "guides" / "index.html").write_text(page(
         f"Guides | {SITE_NAME}",
         f'<div class="wrap"><div class="page-head"><span class="eyebrow">Guides</span><h1>Money and admin, made simple</h1>'
         f'<p>Practical guides for freelancers on pricing, invoicing and taxes.</p></div><div class="list">{items}</div></div>',
-        css="../assets/style.css", desc="Practical money and admin guides for freelancers."))
+        css="../assets/style.css", desc="Practical money and admin guides for freelancers.",
+        head=growth.seo_head("guides/", "Guides", "Practical money and admin guides for freelancers.")))
+    extra = growth.build_extras(out, page, read_guide, buy_button, data["products"], guides)
 
     robots = "User-agent: *\nAllow: /\n"
     if SITE_URL:
-        urls = [f"{SITE_URL}/", f"{SITE_URL}/guides/"] + [f"{SITE_URL}/guides/{g['slug']}/" for g in guides]
+        urls = [f"{SITE_URL}/", f"{SITE_URL}/guides/"] + [f"{SITE_URL}/guides/{g['slug']}/" for g in guides] + [f"{SITE_URL}/{x}" for x in extra]
         (out / "sitemap.xml").write_text(
             '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
             + "".join(f"<url><loc>{u}</loc></url>" for u in urls) + "</urlset>\n")
