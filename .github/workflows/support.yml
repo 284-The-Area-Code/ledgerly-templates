@@ -24,6 +24,6 @@ jobs:
             if (context.eventName === 'issues' && context.payload.action === 'opened') {
               await github.rest.issues.createComment({ ...issue, body:
                 "Thanks for getting in touch! We've got your question and will reply here within one business day.\n\n" +
-                "In the meantime, the [Help page](https://284-the-area-code.github.io/ledgerly-templates/help/) answers the most common questions. " +
+                `In the meantime, the [Help page](https://${context.repo.owner.toLowerCase()}.github.io/${context.repo.repo}/help/) answers the most common questions. ` +
                 "Please don't post your email address or order details here, as this page is public." });
             }
