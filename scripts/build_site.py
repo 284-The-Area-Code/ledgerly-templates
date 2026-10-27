@@ -88,7 +88,7 @@ article.guide li{margin:6px 0}article.guide strong{font-weight:600}article.guide
 .cta h3{font-size:24px;margin:12px 0 8px}.cta p{color:var(--muted);margin:0 0 20px;font-size:16px}
 .thanks{text-align:center;padding:120px 0}.thanks h1{font-size:clamp(36px,6vw,56px);margin:14px 0 16px}.thanks p{color:var(--muted);font-size:18px}
 .brand{display:flex;flex-direction:column;gap:3px;margin-right:auto}.brand .logo{margin-right:0}
-.by{display:inline-flex;align-items:center;gap:5px;margin-left:36px;font:500 11px/1 var(--mono);letter-spacing:.06em;color:var(--muted);text-decoration:none;padding:6px 0;margin:-6px 0}
+.by{display:inline-flex;align-items:center;gap:5px;font:500 11px/1 var(--mono);letter-spacing:.06em;color:var(--muted);text-decoration:none;padding:6px 0;margin:-6px 0 -6px 36px}
 .dzt{display:inline-block;width:52px;height:11px;background:currentColor;-webkit-mask:url(dezetingz-wordmark-white.png) left center/contain no-repeat;mask:url(dezetingz-wordmark-white.png) left center/contain no-repeat}
 .by:hover{color:var(--green)}
 footer{border-top:1px solid var(--line);padding:40px 0 56px;color:var(--muted);font-size:14px}
