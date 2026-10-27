@@ -17,6 +17,9 @@ from tokens import download_token
 ROOT = Path(__file__).resolve().parent.parent
 SITE_NAME = "Rowfern"
 SITE_URL = os.environ.get("SITE_URL", "").rstrip("/")
+# Rowfern is a DezeTingz product: the slim bar above the nav and the footer credit link back to it.
+PARENT_NAME = "DezeTingz"
+PARENT_URL = "https://dezetingz.com/"
 TAGLINE = "Spreadsheet templates that keep freelancers and small businesses paid, organized and ready for tax time."
 FONTS = ("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600"
          "&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap")
@@ -84,6 +87,11 @@ article.guide li{margin:6px 0}article.guide strong{font-weight:600}article.guide
 .cta{margin-top:48px;padding:32px;border-radius:var(--radius);background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow)}
 .cta h3{font-size:24px;margin:12px 0 8px}.cta p{color:var(--muted);margin:0 0 20px;font-size:16px}
 .thanks{text-align:center;padding:120px 0}.thanks h1{font-size:clamp(36px,6vw,56px);margin:14px 0 16px}.thanks p{color:var(--muted);font-size:18px}
+.dz{background:#0c2330;color:rgba(255,255,255,.72);font:500 12px/1 var(--sans)}
+.dz .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:34px}
+.dz a{display:inline-flex;align-items:center;gap:8px;color:#fff;text-decoration:none}.dz a:hover{color:#4fd4d1}
+.dz img{height:15px;width:auto;display:block}
+.credit{display:inline-flex;align-items:center;gap:8px}.credit img{width:18px;height:18px;border-radius:50%}
 footer{border-top:1px solid var(--line);padding:40px 0 56px;color:var(--muted);font-size:14px}
 footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}footer a{text-decoration:none;margin-left:20px}
 .form.calc{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 20px;margin:32px 0 20px;padding:28px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius)}
@@ -99,7 +107,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .contact{margin:32px 0;padding:28px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--green);border-radius:var(--radius)}
 .contact p{margin:0 0 10px}.contact p:last-child{margin:0;color:var(--muted);font-size:16px}
 @media (max-width:860px){.hero{grid-template-columns:1fr;padding:56px 0 48px;gap:40px}.steps{grid-template-columns:1fr}section{padding:56px 0}
-.grid{grid-template-columns:1fr}.sheet{transform:none}.form.calc{grid-template-columns:1fr;padding:20px}.result{padding:4px 20px}nav .wrap{gap:18px}}
+.grid{grid-template-columns:1fr}.sheet{transform:none}.form.calc{grid-template-columns:1fr;padding:20px}.result{padding:4px 20px}nav .wrap{gap:18px}.dz-note{display:none}}
 """
 
 SHEET = """<div class="sheet" aria-hidden="true"><div class="bar"><b></b><b></b><b></b></div><table>
@@ -126,11 +134,14 @@ def page(title, body, css="assets/style.css", desc=TAGLINE, head=""):
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{html.escape(title)}</title><meta name="description" content="{html.escape(desc)}">{head}
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="icon" href="{base}assets/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="{base}assets/apple-touch-icon.png">
 <link rel="stylesheet" href="{FONTS}"><link rel="stylesheet" href="{css}"></head><body>
+<div class="dz"><div class="wrap"><a href="{PARENT_URL}"><span aria-hidden="true">&larr;</span><img src="{base}assets/dezetingz-wordmark-white.png" alt="{PARENT_NAME}" width="71" height="15"></a>
+<span class="dz-note">Rowfern is a {PARENT_NAME} product</span></div></div>
 <nav><div class="wrap"><a class="logo" href="{base}./"><i>R</i>{SITE_NAME}</a>
 <a class="nl" href="{base}./#templates">Templates</a><a class="nl" href="{base}guides/">Guides</a>
 <a class="nl" href="{base}tools/">Tools</a></div></nav>{body}
-<footer><div class="wrap"><span>&copy; {SITE_NAME}, a <a href="https://dezetingz.com" style="margin:0;text-decoration:underline">DezeTingz</a> product. One-time purchase, instant download.</span>
+<footer><div class="wrap"><span class="credit"><img src="{base}assets/dezetingz-mark.png" alt="" width="18" height="18"><span>&copy; {SITE_NAME}, a <a href="{PARENT_URL}" style="margin:0;text-decoration:underline">{PARENT_NAME}</a> product. One-time purchase, instant download.</span></span>
 <span><a href="{base}./#templates">Templates</a><a href="{base}guides/">Guides</a><a href="{base}tools/">Free tools</a><a href="{base}help/">Help &amp; contact</a></span></div></footer>
 </body></html>"""
 
@@ -158,6 +169,8 @@ def main():
         shutil.rmtree(out)
     (out / "assets").mkdir(parents=True)
     (out / "assets" / "style.css").write_text(CSS)
+    for f in (ROOT / "brand").iterdir():  # favicon, share image, DezeTingz marks
+        shutil.copy(f, out / "assets" / f.name)
     (out / ".nojekyll").write_text("")
 
     cards = []
@@ -240,6 +253,8 @@ def main():
             '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
             + "".join(f"<url><loc>{u}</loc></url>" for u in urls) + "</urlset>\n")
         robots += f"Sitemap: {SITE_URL}/sitemap.xml\n"
+        # Lets search engines accept this site's URLs from the DezeTingz sitemap index too.
+        robots += f"Sitemap: {PARENT_URL}sitemap-index.xml\n"
     (out / "robots.txt").write_text(robots)
     print(f"Built {len(data['products'])} products and {len(guides)} guides into {out}")
 
