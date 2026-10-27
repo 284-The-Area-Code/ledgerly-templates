@@ -130,7 +130,7 @@ def page(title, body, css="assets/style.css", desc=TAGLINE, head=""):
 <nav><div class="wrap"><a class="logo" href="{base}./"><i>R</i>{SITE_NAME}</a>
 <a class="nl" href="{base}./#templates">Templates</a><a class="nl" href="{base}guides/">Guides</a>
 <a class="nl" href="{base}tools/">Tools</a></div></nav>{body}
-<footer><div class="wrap"><span>&copy; {SITE_NAME}. One-time purchase, instant download.</span>
+<footer><div class="wrap"><span>&copy; {SITE_NAME}, a <a href="https://dezetingz.com" style="margin:0;text-decoration:underline">DezeTingz</a> product. One-time purchase, instant download.</span>
 <span><a href="{base}./#templates">Templates</a><a href="{base}guides/">Guides</a><a href="{base}tools/">Free tools</a><a href="{base}help/">Help &amp; contact</a></span></div></footer>
 </body></html>"""
 
