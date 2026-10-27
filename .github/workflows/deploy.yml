@@ -21,7 +21,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     env:
-      SITE_URL: https://284-the-area-code.github.io/rowfern
+      SITE_URL: https://rowfern.dezetingz.com
       PRODUCT_KEY: ${{ secrets.PRODUCT_KEY }}
       STRIPE_KEY: ${{ secrets.STRIPE_KEY }}
     steps:
