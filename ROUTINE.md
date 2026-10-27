@@ -43,7 +43,8 @@ keys or payment settings. If a step fails twice, log it in `LOG.md`, push the lo
 
 - `PRODUCT_KEY`: private key that opens the sealed templates and makes the secret download
   addresses. Without it the site still deploys, with every product marked Coming soon.
-- `STRIPE_KEY`: Stripe restricted key with write access to Products, Prices and Payment Links.
-  The deploy creates a payment link for any product that lacks one.
+- `DODO_API_KEY`: Dodo Payments API key. The deploy lists any product that isn't on Dodo yet
+  and gives every product a checkout link. Set the Actions variable `DODO_MODE` to `test` to
+  use a test-mode key; leave it unset for live.
 
 The weekly task itself needs no secrets.

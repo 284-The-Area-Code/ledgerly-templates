@@ -37,15 +37,15 @@ The repo `284-The-Area-Code/rowfern` is the business. Do not ask anyone for inpu
 - Never ask for, repeat or post an email address, order number or payment detail in a GitHub
   issue: issues are public. For anything about a specific order (lost download, refund, receipt),
   point them to the support email if `support_email` is set, otherwise tell them to reply to their
-  Stripe receipt email. If someone posts personal details anyway, say you've seen them and
+  Dodo Payments receipt email. If someone posts personal details anyway, say you've seen them and
   suggest they edit the issue to remove them.
 - Never post or reveal a download page address (`/d/...`) or anything from `PRODUCT_KEY` in public.
   Download links may only be sent privately by email, and only when the customer forwards or quotes
-  their Stripe receipt for that template. The link is `<SITE_URL>/d/<token>/`, where the token comes
+  their Dodo Payments receipt for that template. The link is `<SITE_URL>/d/<token>/`, where the token comes
   from `download_token(slug)` in `scripts/tokens.py`, run with `PRODUCT_KEY` set from the private key
   at `/mnt/project-files/store-secrets/PRODUCT_KEY.pem`. Never write the token or key anywhere else.
 - Refunds: we give a full refund on request within the number of days in `site.json`
-  (`refund_days`), no questions asked. Refunds are issued in Stripe, which this task can't reach yet:
+  (`refund_days`), no questions asked. Refunds are issued in the Dodo Payments dashboard, which this task can't reach yet:
   confirm to the customer by email that the refund is on its way, and end your run with a summary
   that starts "Refund needed:" with the date and template (never the customer's details), so the
   owner's notification shows it.

@@ -11,8 +11,8 @@ A static store selling spreadsheet templates for freelancers, run by a weekly sc
   `scripts/growth.py` builds the Help page, tools, RSS feed and SEO tags; `scripts/indexnow.py`
   pings search engines after each deploy.
 - `SUPPORT.md` how customer questions are answered by the daily support task.
-- `scripts/seal.py` seals new templates. `scripts/unseal.py`, `scripts/stripe_sync.py` and
+- `scripts/seal.py` seals new templates. `scripts/unseal.py`, `scripts/dodo_sync.py` and
   `scripts/build_site.py` run in the deploy workflow.
 
-After checkout, Stripe sends the buyer to a download page whose address is derived from the
+After checkout, Dodo Payments sends the buyer to a download page whose address is derived from the
 `PRODUCT_KEY` secret, so it never appears in the repo.
