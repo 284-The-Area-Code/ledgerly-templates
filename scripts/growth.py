@@ -16,6 +16,8 @@ ROOT = Path(__file__).resolve().parent.parent
 SITE = json.loads((ROOT / "site.json").read_text())
 SITE_URL = os.environ.get("SITE_URL", "").rstrip("/")
 NAME = "Rowfern Templates"
+# The company behind Rowfern, named as publisher so both sites read as one family.
+PARENT = {"@type": "Organization", "@id": "https://dezetingz.com/#org", "name": "DezeTingz", "url": "https://dezetingz.com/"}
 
 
 def seo_head(path, title, desc, jsonld=None, home=False):
@@ -30,13 +32,21 @@ def seo_head(path, title, desc, jsonld=None, home=False):
             f'<meta property="og:title" content="{e(title)}">',
             f'<meta property="og:description" content="{e(desc)}">',
             f'<meta property="og:url" content="{e(url)}">',
-            '<meta name="twitter:card" content="summary">',
+            f'<meta property="og:image" content="{SITE_URL}/assets/og-rowfern.png">',
+            '<meta property="og:image:width" content="1200">',
+            '<meta property="og:image:height" content="630">',
+            '<meta property="og:image:alt" content="Rowfern: spreadsheets that pay you back. A DezeTingz product.">',
+            '<meta name="twitter:card" content="summary_large_image">',
             f'<link rel="alternate" type="application/rss+xml" title="{NAME}" href="{SITE_URL}/feed.xml">']
     if home:
         for key, meta in (("google_site_verification", "google-site-verification"),
                           ("bing_site_verification", "msvalidate.01")):
             if SITE.get(key):
                 tags.append(f'<meta name="{meta}" content="{e(SITE[key])}">')
+    if home:
+        tags.append('<script type="application/ld+json">' + json.dumps(
+            {"@context": "https://schema.org", "@type": "Organization", "name": NAME, "url": f"{SITE_URL}/",
+             "logo": f"{SITE_URL}/assets/apple-touch-icon.png", "parentOrganization": PARENT}) + "</script>")
     if jsonld:
         tags.append('<script type="application/ld+json">'
                     + json.dumps(jsonld).replace("</", "<\\/") + "</script>")
@@ -59,7 +69,7 @@ def product_ld(products):
 def article_ld(meta):
     ld = {"@context": "https://schema.org", "@type": "Article", "headline": meta["title"],
           "description": meta["description"], "author": {"@type": "Organization", "name": NAME},
-          "publisher": {"@type": "Organization", "name": NAME}}
+          "publisher": PARENT}
     if meta.get("date"):
         ld["datePublished"] = meta["date"]
     return ld
