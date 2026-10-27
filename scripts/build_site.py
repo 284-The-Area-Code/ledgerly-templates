@@ -1,6 +1,6 @@
 """Build the static storefront from products.json and guides/ into ./_site (deployed to GitHub Pages).
 
-Payment links come from build/links.json (written by stripe_sync.py). A product gets a Buy button
+Payment links come from build/links.json (written by dodo_sync.py). A product gets a Buy button
 and a download page only when it has a payment link and its unsealed file is present.
 
 Usage: python3 scripts/build_site.py   (run from the repo root)
@@ -182,7 +182,7 @@ def main():
 
         if not link:
             continue
-        # Download page that Stripe redirects to after payment.
+        # Download page that Dodo Payments redirects to after payment.
         d = out / "d" / download_token(p["slug"])
         d.mkdir(parents=True)
         shutil.copy(src, d / p["file"])
